@@ -1,0 +1,19 @@
+{
+	"TileCollection" : [
+		
+		{
+			"icon" : "sap-icon://detail-view",
+			"number" : "10",
+			"numberUnit" : "4",
+			"title" : "Detail",
+			"info" : "Shortage"
+		},
+			{
+			"icon" : "sap-icon://message-warning",
+			"number" : "10",
+			"numberUnit" : "4",
+			"title" : "Monitor",
+			"info" : "Shortage"
+		}
+	]
+}
