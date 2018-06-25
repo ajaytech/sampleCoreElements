@@ -17,6 +17,10 @@
 			"optionForUsersDataSrc": {
 				"uri": "model/data.json",
 				"type": "JSON"
+			},
+			"globalModelSrc": {
+				"uri": "model/dataOverView.json",
+				"type": "JSON"
 			}
 		}
 	},
@@ -68,11 +72,18 @@
 			"optionForUsers": {
 				"type": "sap.ui.model.json.JSONModel",
 				"dataSource": "optionForUsersDataSrc"
+			},
+			"globalModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"dataSource": "globalModelSrc"
 			}
 		},
 		"resources": {
 			"css": [{
 				"uri": "css/style.css"
+			}],
+			"js": [{
+				"uri": "util/formatter.js"
 			}]
 		},
 		"routing": {

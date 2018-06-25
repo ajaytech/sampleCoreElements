@@ -1,9 +1,80 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="sampleCoreElements.controller.materialOverView"
-	xmlns:html="http://www.w3.org/1999/xhtml">
+<mvc:View xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:micro="sap.suite.ui.microchart" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="sampleCoreElements.controller.materialOverView">
 	<App id="materialoverview">
 		<pages>
-			<Page title="InsideOverView">
-				<content></content>
+			<Page title="{i18n>overViewMat}" showNavButton="true" navButtonTap="onBack">
+				<content>
+					<ObjectHeader title="{globalModel>/Shortage Summary/Title}" number="{globalModel>/Shortage Summary/Number}" numberUnit="{globalModel>/Shortage Summary/Text}" introActive="true" titleActive="true" id="__header1"/>
+					<sap.ui.layout:VerticalLayout xmlns:sap.ui.layout="sap.ui.layout" width="100%" id="__layout0">
+						<fb:FilterBar reset="onReset" search="filterItems" showRestoreButton="true" showClearButton="true">
+							<fb:filterItems>
+								<fb:FilterItem name="A" label="{i18n>byProductMat}">
+									<fb:control>
+										<Input liveChange="filterItems" width="100%" id="__input4"/>
+									</fb:control>
+								</fb:FilterItem>
+								<fb:FilterItem name="B" label="{i18n>byIDMat}">
+									<fb:control>
+										<Input type="Text" liveChange="onChangeID" width="100%" id="__input5"/>
+									</fb:control>
+								</fb:FilterItem>
+								<fb:FilterItem name="C" label="{i18n>bySupplier}">
+									<fb:control>
+										<Input width="100%" id="__input6"/>
+									</fb:control>
+								</fb:FilterItem>
+							</fb:filterItems>
+						</fb:FilterBar>
+						<sap.ui.layout:content>
+							<Table mode="MultiSelect" items="{globalModel>/Material Data/}" oDataText="Drop column list items here and columns in the area above" id="__table0">
+								<columns>
+									<Column id="__column0">
+										<header>
+											<Label text="Material" id="__label0"/>
+										</header>
+									</Column>
+									<Column id="__column1">
+										<header>
+											<Label text="Material Group" id="__label1"/>
+										</header>
+									</Column>
+									<Column id="__column2">
+										<header>
+											<Label text="Supplier" id="__label2"/>
+										</header>
+									</Column>
+									<Column id="__column3">
+										<header>
+											<Label text="Stock Available Now" id="__label3"/>
+										</header>
+									</Column>
+									<Column id="__column4">
+										<header>
+											<Label text="Stock Availablity(Next 3)" id="__label4"/>
+										</header>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem id="__item6">
+										<cells>
+											<ObjectIdentifier title="{globalModel>Material Name}" text="{globalModel>Material Num}" titleActive="true"/>
+											<Text text="{globalModel>Material Group}" id="__text6"/>
+											<Text text="{globalModel>Material Supplier}" id="__text7"/>
+											<Text text="{globalModel>Availability/0/Quantity}" id="__text8"/>
+											<FlexBox height="140px" width="100px">
+												<micro:ColumnMicroChart size="S" class="sapUiSmallMargin" columns="{globalModel>Availability/}">
+													<micro:columns>
+														<micro:ColumnMicroChartData value="{globalModel>Quantity}" color="{                               path:'globalModel>Quantity',                             formatter: '.formatter.formatBarColor'            }"/>
+													</micro:columns>
+												</micro:ColumnMicroChart>
+											</FlexBox>
+											</cells>
+									</ColumnListItem>
+								</items>
+								
+							</Table>
+						</sap.ui.layout:content>
+					</sap.ui.layout:VerticalLayout>
+				</content>
 			</Page>
 		</pages>
 	</App>
