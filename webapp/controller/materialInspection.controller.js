@@ -1,18 +1,18 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller"
+	"sap/ui/core/mvc/Controller",
+	"sampleCoreElements/util/formatter"
 ], function(Controller,formatter) {
 	"use strict";
 
 	return Controller.extend("sampleCoreElements.controller.materialInspection", {
-	
+		formatter: formatter,
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 		 * @memberOf sampleCoreElements.view.materialInspection
 		 */
-		//	onInit: function() {
-		//
-		//	},
+			onInit: function() {
+			},
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

@@ -63,7 +63,7 @@
 											<FlexBox height="140px" width="100px">
 												<micro:ColumnMicroChart size="S" class="sapUiSmallMargin" columns="{globalModel>Availability/}">
 													<micro:columns>
-														<micro:ColumnMicroChartData value="{globalModel>Quantity}" color="{                               path:'globalModel>Quantity',                             formatter: '.formatter.formatBarColor'            }"/>
+														<micro:ColumnMicroChartData value="{globalModel>Quantity}" color="{ path:'globalModel>Quantity',  formatter: '.formatter.formatBarColor'   }"/>
 													</micro:columns>
 												</micro:ColumnMicroChart>
 											</FlexBox>

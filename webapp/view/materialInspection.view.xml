@@ -1,9 +1,35 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
-	controllerName="sampleCoreElements.controller.materialInspection" xmlns:html="http://www.w3.org/1999/xhtml">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout"
+	xmlns:html="http://www.w3.org/1999/xhtml" controllerName="sampleCoreElements.controller.materialInspection">
 	<App id="materialInspectionID">
 		<pages>
 			<Page title="Material Details">
-				<content></content>
+				<content>
+					<l:ResponsiveSplitter defaultPane="default">
+						<l:PaneContainer>
+							<l:SplitPane requiredParentWidth="400">
+								<Panel headerText="Minimum parent width 400">
+									<SearchField width="100%" placeholder="Search" id="__field0"/>
+									<List items="{detailPageList>/Material Details}" headerText="Products" >
+										<items>
+											<ObjectListItem title="{detailPageList>Material Name}" type="Active" press="onListItemPress"
+												number="{detailPageList>Quantity Avail}"
+												numberUnit="{detailPageList>Quantity Unit}">
+												<firstStatus>
+													<ObjectStatus text="{detailPageList>State}" state="{ path:'detailPageList>State',  formatter: '.formatter.formatAvailMatStock'  }"/>
+												</firstStatus>
+											</ObjectListItem>
+										</items>
+									</List>
+								</Panel>
+							</l:SplitPane>
+							<l:PaneContainer orientation="Vertical">
+								<l:SplitPane requiredParentWidth="400">
+									<Panel headerText="Minimum parent width 400" height="100%"></Panel>
+								</l:SplitPane>
+							</l:PaneContainer>
+						</l:PaneContainer>
+					</l:ResponsiveSplitter>
+				</content>
 			</Page>
 		</pages>
 	</App>

@@ -21,6 +21,14 @@
 			"globalModelSrc": {
 				"uri": "model/dataOverView.json",
 				"type": "JSON"
+			},
+			"detailPageListSrc":{
+				"uri":"model/dataDetailsApp.json",
+				"type": "JSON"
+			},
+			"showDetailMatSrc":{
+				"uri":"model/dataDetailsMaterialsApp1055.json",
+				"type": "JSON"
 			}
 		}
 	},
@@ -76,6 +84,14 @@
 			"globalModel": {
 				"type": "sap.ui.model.json.JSONModel",
 				"dataSource": "globalModelSrc"
+			},
+			"detailPageList":{
+				"type": "sap.ui.model.json.JSONModel",
+				"dataSource": "detailPageListSrc"
+			},
+			"showDetailMat":{
+				"type": "sap.ui.model.json.JSONModel",
+				"dataSource": "showDetailMatSrc"
 			}
 		},
 		"resources": {
