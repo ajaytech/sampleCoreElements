@@ -12,6 +12,7 @@ sap.ui.define([
 		 * @memberOf sampleCoreElements.view.materialInspection
 		 */
 			onInit: function() {
+			
 			},
 
 		/**
@@ -22,15 +23,67 @@ sap.ui.define([
 		//	onBeforeRendering: function() {
 		//
 		//	},
+		
+	/*	createDataBindViz : function(){
+			var oData =  this.getView().getModel("detailPageList").getData();
+			var oDataViz = {};
+			
+			for(var i=0;i<oData["Stock flow"].length;i++){
+				oDataViz.push({
+					"Type":oData[i]["Order Type"],
+					"Date":oData[i]["Date"],
+					"Quantity":i===0?oData[i]["Quantity Avail"]:oData[i]["Order Type"]==="SO"?(-1*oData[i]["Quantity"]):oData[i]["Quantity"]
+					
+				});
+			}
+			console.log(oDataViz);
+		},*/
+		
 
 		/**
 		 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
 		 * This hook is the same one that SAPUI5 controls get after being rendered.
 		 * @memberOf sampleCoreElements.view.materialInspection
 		 */
-		//	onAfterRendering: function() {
-		//
-		//	},
+			onAfterRendering: function() {
+		
+			var oViz = this.byId("idVizFrame");
+			var oData =  this.getView().getModel("showDetailMat").getData();
+			var oDataViz = [];
+			
+			for(var i=0;i<oData["Stock flow"].length;i++){
+				oDataViz.push({
+					"Type":oData["Stock flow"][i]["Order Type"],
+					"Date":oData["Stock flow"][i]["Date"],
+					"Quantity":i===0?oData["Stock flow"][i]["Quantity Avail"]:oData["Stock flow"][i]["Order Type"]==="SO"?(-1*oData["Stock flow"][i]["Quantity"]):oData["Stock flow"][i]["Quantity"]
+					
+				});
+			}
+			var newVizModel = new sap.ui.model.json.JSONModel();
+			newVizModel.setData(oDataViz);
+			
+			this.getView().setModel(newVizModel,"vizStockFlow");
+			
+			oViz.setVizProperties({
+				legend: {
+                    title: {
+                        visible: true
+                    },
+                    label: {
+                        text: {
+                            negativeValue: "SO",
+                            positiveValue: "PO"
+                        }
+                    }
+                },
+                title: {
+                    visible: true,
+                    text: 'Stock Flow'
+                }
+				
+			});
+			
+			},
 
 		/**
 		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.

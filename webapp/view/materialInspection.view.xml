@@ -1,4 +1,5 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout"
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:c="sap.suite.ui.commons"
+	xmlns:viz="sap.viz.ui5.controls" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data"
 	xmlns:html="http://www.w3.org/1999/xhtml" controllerName="sampleCoreElements.controller.materialInspection">
 	<App id="materialInspectionID">
 		<pages>
@@ -9,13 +10,12 @@
 							<l:SplitPane requiredParentWidth="400">
 								<Panel headerText="Minimum parent width 400">
 									<SearchField width="100%" placeholder="Search" id="__field0"/>
-									<List items="{detailPageList>/Material Details}" headerText="Products" >
+									<List items="{detailPageList>/Material Details}" headerText="Products">
 										<items>
-											<ObjectListItem title="{detailPageList>Material Name}" type="Active" press="onListItemPress"
-												number="{detailPageList>Quantity Avail}"
+											<ObjectListItem title="{detailPageList>Material Name}" type="Active" press="onListItemPress" number="{detailPageList>Quantity Avail}"
 												numberUnit="{detailPageList>Quantity Unit}">
 												<firstStatus>
-													<ObjectStatus text="{detailPageList>State}" state="{ path:'detailPageList>State',  formatter: '.formatter.formatAvailMatStock'  }"/>
+													<ObjectStatus text="{detailPageList>State}" state="{ path:'detailPageList>State', formatter: '.formatter.formatAvailMatStock' }"/>
 												</firstStatus>
 											</ObjectListItem>
 										</items>
@@ -24,7 +24,117 @@
 							</l:SplitPane>
 							<l:PaneContainer orientation="Vertical">
 								<l:SplitPane requiredParentWidth="400">
-									<Panel headerText="Minimum parent width 400" height="100%"></Panel>
+									<l:VerticalLayout width="100%" class="sapUiContentPadding">
+										<ObjectHeader title="{showDetailMat>/Material Name}" number="{showDetailMat>/Quantity Avail}" numberUnit="{showDetailMat>/Quantity Unit}">
+											<attributes>
+												<ObjectAttribute text="{showDetailMat>/Material Num}"/>
+												<ObjectAttribute text="{showDetailMat>/Material Type}"/>
+												<ObjectAttribute text="{i18n>supplierText} {showDetailMat>/Material Supplier}"/>
+											</attributes>
+											<statuses>
+												<ObjectStatus text="{showDetailMat>/State}" state="Error"/>
+											</statuses>
+										</ObjectHeader>
+										<IconTabBar id="idIconTabBar" select="handleIconTabBarSelect" class="sapUiResponsiveContentPadding">
+											<items>
+												<IconTabFilter icon="sap-icon://alert" iconColor="Neutral">
+													<content>
+														<l:FixFlex>
+															<l:fixContent>
+																<c:ChartContainer id="chartContainer01" showFullScreen="true" showPersonalization="false" autoAdjustHeight="false"
+																	personalizationPress="attachPersonalizationPress" contentChange="attachContentChange" title="Revenue">
+																	<c:content>
+																		<c:ChartContainerContent id="chartContainer01_01" icon="sap-icon://table-chart" title="Table">
+																			<c:content>
+																				<Table mode="MultiSelect" items="{globalModel>/Material Data/}" id="__table01">
+																					<columns>
+																						<Column id="__column0">
+																							<header>
+																								<Label text="Material" id="__label0"/>
+																							</header>
+																						</Column>
+																						<Column id="__column1">
+																							<header>
+																								<Label text="Material Group" id="__label1"/>
+																							</header>
+																						</Column>
+																						<Column id="__column2">
+																							<header>
+																								<Label text="Supplier" id="__label2"/>
+																							</header>
+																						</Column>
+																						<Column id="__column3">
+																							<header>
+																								<Label text="Stock Available Now" id="__label3"/>
+																							</header>
+																						</Column>
+																						<Column id="__column4">
+																							<header>
+																								<Label text="Stock Availablity(Next 3)" id="__label4"/>
+																							</header>
+																						</Column>
+																					</columns>
+																					<items>
+																						<ColumnListItem id="__item6">
+																							<cells>
+																								<ObjectIdentifier title="{globalModel>Material Name}" text="{globalModel>Material Num}" titleActive="true"/>
+																								<Text text="{globalModel>Material Group}" id="__text6"/>
+																								<Text text="{globalModel>Material Supplier}" id="__text7"/>
+																								<Text text="{globalModel>Availability/0/Quantity}" id="__text8"/>
+																								<Text text="{globalModel>Availability/0/Quantity}" id="__text9"/>
+																							</cells>
+																						</ColumnListItem>
+																					</items>
+																				</Table>
+																			</c:content>
+																		</c:ChartContainerContent>
+																		<c:ChartContainerContent id="chartContainer01_02" icon="sap-icon://line-chart" title="Viz">
+																			<c:content>
+																				<viz:Popover id="idPopOver"></viz:Popover>
+																				<viz:VizFrame id="idVizFrame" height='100%' width="100%" vizType='waterfall'>
+																					<viz:dataset>
+																						<viz.data:FlattenedDataset data="{vizStockFlow>/}">
+																							<viz.data:dimensions>
+																								<viz.data:DimensionDefinition name="Type" value="{vizStockFlow>Type}"/>
+																								<viz.data:DimensionDefinition name="Date" value="{vizStockFlow>Date}"/>
+																							</viz.data:dimensions>
+																							<viz.data:measures>
+																								<viz.data:MeasureDefinition name="Quantity" value="{vizStockFlow>Quantity}"/>
+																							</viz.data:measures>
+																						</viz.data:FlattenedDataset>
+																					</viz:dataset>
+																					<viz:feeds>
+																						<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Quantity"/>
+																						<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Date"/>
+																						<viz.feeds:FeedItem uid="waterfallType" type="Dimension" values="Type"/>
+																					</viz:feeds>
+																				</viz:VizFrame>
+																			</c:content>
+																		</c:ChartContainerContent>
+																	</c:content>
+																</c:ChartContainer>
+															</l:fixContent>
+														</l:FixFlex>
+													</content>
+												</IconTabFilter>
+											</items>
+										</IconTabBar>
+										<HBox items="{optionForUsers>/TileCollection}">
+											<items>
+												<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout">
+													<tileContent>
+														<TileContent >
+															<HBox>
+																<Label text="{optionForUsers>numberUnit}"/>
+																<Label text="{optionForUsers>info}"/>
+																<RatingIndicator maxValue="5" class="sapUiSmallMarginBottom" value="4" tooltip="Rating Tooltip" />
+															</HBox>
+														</TileContent>
+													</tileContent>
+												</GenericTile>
+											</items>
+										</HBox>
+									</l:VerticalLayout>
 								</l:SplitPane>
 							</l:PaneContainer>
 						</l:PaneContainer>

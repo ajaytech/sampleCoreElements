@@ -11,7 +11,7 @@ sap.ui.define([
 		 * @memberOf sampleCoreElements.view.App
 		 */
 			onInit: function() {
-				debugger;
+				
 			},
 
 		/**
@@ -29,7 +29,7 @@ sap.ui.define([
 		 * @memberOf sampleCoreElements.view.App
 		 */
 			onAfterRendering: function() {
-			debugger;
+			
 			
 			},
 
